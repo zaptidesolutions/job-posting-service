@@ -7,7 +7,7 @@ from config.db_config import freelance_db as db
 router = APIRouter()
 
 # ---------------- Job Searching Endpoints ----------------
-@router.get("/v1/jobs/{job_id:[0-9a-fA-F]{24}}", response_model=JobPosting)
+@router.get("/v1/jobs/{job_id}", response_model=JobPosting)
 async def get_job_by_id(job_id: str):
     job = await db.jobs.find_one({"_id": ObjectId(job_id)})
     if not job:
