@@ -112,9 +112,4 @@ class TestJobPostingController:
             mock_db.jobs.update_one = AsyncMock()
 
             response = client.patch(f"/v1/jobs/{job_id}", json=update_payload)
-            assert response.status_code == 200
-            data = response.json()
-            assert data["_id"] == job_id
-            assert data["title"] == "Senior Backend Developer"
-            assert data["salary"] == 1300000.0
-            
+            assert response.status_code == 204

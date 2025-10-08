@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Body
+from fastapi import APIRouter, HTTPException, Body, status, Response
 from models.JobPosting import JobCreate, JobPosting
 from models.JobUpdateRequest import JobUpdateRequest
 from bson import ObjectId
@@ -12,9 +12,9 @@ router = APIRouter()
 async def create_job_posting(job: JobCreate = Body(...)):
     return await add_job_post(job)
 
-@router.patch("/v1/jobs/{job_id}")
+@router.patch("/v1/jobs/{job_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def update_job_posting(job_id: str, job_update: JobUpdateRequest = Body(...)):
-    return await update_job_post(job_id, job_update)
+    await update_job_post(job_id, job_update)
 
 @router.get("/v1/jobs/{job_id}", response_model=JobPosting)
 async def get_job_by_id(job_id: str):
