@@ -1,5 +1,5 @@
 from mongo_migrate.base_migrate import BaseMigration
-from config import freelance_db
+from db_migration_config import freelance_db
 
 class Migration(BaseMigration):
     def upgrade(self):
