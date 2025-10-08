@@ -27,7 +27,6 @@ async def list_jobs(
     jobs = await JobListService(db).get_jobs(strategy, page, page_size)
     return jobs
 
-
 @router.get("/v1/jobs/{job_id}", response_model=JobPosting)
 async def get_job_by_id(job_id: str):
     job = await db.jobs.find_one({"_id": ObjectId(job_id)})
