@@ -4,7 +4,6 @@ from datetime import datetime
 from typing import Optional
 
 class JobCreate(BaseModel):
-    job_id: Optional[str] = Field(default=None, alias="_id")
     user_id: str
     title: str
     description: str
@@ -15,7 +14,7 @@ class JobCreate(BaseModel):
     is_active: bool = True
 
     class Config:
-        allow_population_by_field_name = True
+        validate_by_name = True
 
 
 class JobPosting(JobCreate):
