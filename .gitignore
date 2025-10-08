@@ -17,4 +17,4 @@ __pycache__/
 myenv/
 .vscode/
 
-src/service/job_query_strategy/
+# src/service/job_query_strategy/
