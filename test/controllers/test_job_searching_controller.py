@@ -30,7 +30,7 @@ class TestJobPostingController:
     def test_get_job_by_id_success(self,client):
         job_id = "68e68a4025035785b7c93f3f"
 
-        with patch("controllers.v1.job_searching_controller.db") as mock_db:
+        with patch("service.job_searching_service.db") as mock_db:
             mock_db.jobs.find_one = AsyncMock(return_value=mock_job)
 
             response = client.get(f"/v1/jobs/{job_id}")
@@ -44,7 +44,7 @@ class TestJobPostingController:
     def test_get_job_by_id_not_found(self,client):
         job_id = "68e68a4025035785b7c93f3a"
 
-        with patch("controllers.v1.job_searching_controller.db") as mock_db:
+        with patch("service.job_searching_service.db") as mock_db:
             mock_db.jobs.find_one = AsyncMock(return_value=None)
 
             response = client.get(f"/v1/jobs/{job_id}")
