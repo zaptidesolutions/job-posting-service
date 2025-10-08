@@ -2,6 +2,7 @@ from src.config.config_setup import freelance_db
 
 from fastapi import APIRouter, HTTPException, Body
 from models.JobPosting import JobCreate, JobPosting
+from bson import ObjectId
 
 router = APIRouter()
 
@@ -19,3 +20,14 @@ async def create_job_posting(job: JobCreate = Body(...)):
     job_dict["_id"] = str(inserted_record.inserted_id)
     
     return JobPosting(**job_dict)
+
+@router.get("/v1/jobs/{job_id}", response_model=JobPosting)
+async def get_job_by_id(job_id: str):
+    job = await freelance_db.jobs.find_one({"_id": ObjectId(job_id)})
+    if not job:
+        raise HTTPException(status_code=404, detail="Job not found")
+    
+    # Convert ObjectId to string
+    job["_id"] = str(job["_id"])
+    
+    return JobPosting(**job)
