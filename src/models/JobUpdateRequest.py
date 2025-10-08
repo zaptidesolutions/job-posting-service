@@ -8,5 +8,6 @@ class JobUpdateRequest(BaseModel):
     location: Optional[str] = None
     salary: Optional[float] = None
     is_active: Optional[bool] = None
+    skills: Optional[list[str]] = []
     job_id: Optional[str] = Field(None, alias="_id")
     posted_by: Optional[str] = None

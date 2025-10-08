@@ -48,7 +48,7 @@ class TestAPI:
         # Use the patch from the previous conversation:
         # Mock 'find_one' to return None (job doesn't exist)
         # Mock 'insert_one' to return a successful result
-        with patch("controllers.v1.job_posting_controller.db") as mock_db:
+        with patch("service.job_posting_service.db") as mock_db:
             mock_db.jobs.find_one = AsyncMock(return_value=None)
             mock_db.jobs.insert_one = AsyncMock(return_value=mock_insert_result)
 

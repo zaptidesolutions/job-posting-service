@@ -11,6 +11,7 @@ class JobCreate(BaseModel):
     location: str
     salary: Optional[float] = None
     posted_date: datetime
+    skills: Optional[list[str]] = []
     is_active: bool = True
 
     class Config:

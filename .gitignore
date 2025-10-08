@@ -16,3 +16,5 @@ __pycache__/
 # Python Virtual Environments
 myenv/
 .vscode/
+
+# src/service/job_query_strategy/
