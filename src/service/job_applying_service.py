@@ -1,5 +1,5 @@
 from config.db_config import freelance_db as db
-from src.models.user_applied_job import UserAppliedJob
+from models.user_applied_job import UserAppliedJob
 from fastapi import HTTPException
 
 async def apply_to_job(application: UserAppliedJob):
