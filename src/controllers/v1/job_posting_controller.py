@@ -1,24 +1,20 @@
 from fastapi import APIRouter, HTTPException, Body
 from models.JobPosting import JobCreate, JobPosting
+from models.JobUpdateRequest import JobUpdateRequest
 from bson import ObjectId
 from config.db_config import freelance_db as db
+from service.job_posting_service import add_job_post, update_job_post
 
 router = APIRouter()
 
 # ---------------- Job Posting Endpoints ----------------
 @router.post("/v1/jobs", response_model=JobPosting)
 async def create_job_posting(job: JobCreate = Body(...)):
-    existing_job = await db.jobs.find_one({"user_id": job.user_id, "title": job.title})
-    if existing_job:
-        raise HTTPException(status_code=400, detail="Job with this job_id and user_id already exists")
+    return await add_job_post(job)
 
-    job_dict = job.dict()
-    inserted_record = await db.jobs.insert_one(job_dict)
-    
-    # Convert ObjectId to string
-    job_dict["_id"] = str(inserted_record.inserted_id)
-    
-    return JobPosting(**job_dict)
+@router.patch("/v1/jobs/{job_id}")
+async def update_job_posting(job_id: str, job_update: JobUpdateRequest = Body(...)):
+    return await update_job_post(job_id, job_update)
 
 @router.get("/v1/jobs/{job_id}", response_model=JobPosting)
 async def get_job_by_id(job_id: str):
