@@ -1,8 +1,7 @@
-from src.config.config_setup import freelance_db
-
 from fastapi import APIRouter, HTTPException, Body
 from models.JobPosting import JobCreate, JobPosting
 from bson import ObjectId
+from config.db_config import freelance_db
 
 router = APIRouter()
 
