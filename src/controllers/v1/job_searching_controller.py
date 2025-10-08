@@ -1,12 +1,7 @@
-from fastapi import APIRouter, Query, HTTPException
-from service.job_list_service import JobListService
+from fastapi import APIRouter, HTTPException
 from models.JobPosting import JobPosting
 from bson import ObjectId
-from models.JobInfo import JobInfo
-from models.user_applied_job import UserAppliedJob
 from config.db_config import freelance_db as db
-from service.job_filtering_strategy.SkillJobFilter import SkillJobFilter
-from service.job_filtering_strategy.RecentJobFilter import RecentJobFilter
 
 
 router = APIRouter()
