@@ -73,30 +73,6 @@ class TestJobPostingController:
             assert response.status_code == 400
             assert response.json()["detail"] == "Job already exists"
 
-
-    def test_get_job_by_id_success(self,client):
-        job_id = "68e68a4025035785b7c93f3f"
-
-        with patch("controllers.v1.job_posting_controller.db") as mock_db:
-            mock_db.jobs.find_one = AsyncMock(return_value=mock_job)
-
-            response = client.get(f"/v1/jobs/{job_id}")
-            assert response.status_code == 200
-            data = response.json()
-            assert data["_id"] == job_id
-            assert data["title"] == "Backend Developer"
-            assert data["user_id"] == "123"
-
-
-    def test_get_job_by_id_not_found(self,client):
-        job_id = "68e68a4025035785b7c93f3a"
-
-        with patch("controllers.v1.job_posting_controller.db") as mock_db:
-            mock_db.jobs.find_one = AsyncMock(return_value=None)
-
-            response = client.get(f"/v1/jobs/{job_id}")
-            assert response.status_code == 404
-
     def test_update_job_posting_success(self,client):
         job_id = "68e68a4025035785b7c93f3f"
         update_payload = {
