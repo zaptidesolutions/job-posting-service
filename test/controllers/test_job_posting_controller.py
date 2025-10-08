@@ -42,7 +42,7 @@ class TestJobPostingController:
         mock_insert_result = AsyncMock()
         mock_insert_result.inserted_id = "68e68a4025035785b7c93f3f"
 
-        with patch("config.db_config.freelance_db") as mock_db:
+        with patch("controllers.v1.job_posting_controller.db") as mock_db:
             mock_db.jobs.find_one = AsyncMock(return_value=None)
             mock_db.jobs.insert_one = AsyncMock(return_value=mock_insert_result)
 
@@ -66,7 +66,7 @@ class TestJobPostingController:
             "is_active": True
         }
 
-        with patch("config.db_config.freelance_db") as mock_db:
+        with patch("controllers.v1.job_posting_controller.db") as mock_db:
             mock_db.jobs.find_one = AsyncMock(return_value=mock_job)
 
             response = client.post("/v1/jobs", json=job_payload)
@@ -77,7 +77,7 @@ class TestJobPostingController:
     def test_get_job_by_id_success(self,client):
         job_id = "68e68a4025035785b7c93f3f"
 
-        with patch("config.db_config.freelance_db") as mock_db:
+        with patch("controllers.v1.job_posting_controller.db") as mock_db:
             mock_db.jobs.find_one = AsyncMock(return_value=mock_job)
 
             response = client.get(f"/v1/jobs/{job_id}")
@@ -91,7 +91,7 @@ class TestJobPostingController:
     def test_get_job_by_id_not_found(self,client):
         job_id = "68e68a4025035785b7c93f3a"
 
-        with patch("config.db_config.freelance_db") as mock_db:
+        with patch("controllers.v1.job_posting_controller.db") as mock_db:
             mock_db.jobs.find_one = AsyncMock(return_value=None)
 
             response = client.get(f"/v1/jobs/{job_id}")
