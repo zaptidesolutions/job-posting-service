@@ -12,22 +12,7 @@ from service.job_filtering_strategy.RecentJobFilter import RecentJobFilter
 router = APIRouter()
 
 # ---------------- Job Searching Endpoints ----------------
-@router.get("/v1/jobs/search-by", response_model=list[JobInfo])
-async def list_jobs(
-    page: int = 1,
-    page_size: int = 20,
-    days: int = Query(7, description="Recent posts in last X days"),
-    skills: list[str] = Query(None, description="Filter by required skills")
-):
-    if skills:
-        strategy = SkillJobFilter(required_skills=skills)
-    else:
-        strategy = RecentJobFilter(days=days)
-
-    jobs = await JobListService(db).get_jobs(strategy, page, page_size)
-    return jobs
-
-@router.get("/v1/jobs/{job_id}", response_model=JobPosting)
+@router.get("/v1/jobs/{job_id:[0-9a-fA-F]{24}}", response_model=JobPosting)
 async def get_job_by_id(job_id: str):
     job = await db.jobs.find_one({"_id": ObjectId(job_id)})
     if not job:
