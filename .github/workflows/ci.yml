@@ -65,7 +65,7 @@ jobs:
         pip install pytest-cov
         pytest --cov=src --cov-report=xml --cov-report=html \
           --cov-fail-under=50 \
-          --cov-omit=src/config/* , src/service/job_query_strategy/*
+          --cov-omit=src/service/job_query_strategy/*
 
 
     # Coverage report generated in htmlcov directory
