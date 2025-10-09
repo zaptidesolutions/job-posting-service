@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Query
 from service.job_list_service import JobListService
 from models.JobInfo import JobInfo
-from config.db_config import freelance_db as db
 from service.job_filtering_strategy.SkillJobFilter import SkillJobFilter
 from service.job_filtering_strategy.RecentJobFilter import RecentJobFilter
 
@@ -19,5 +18,5 @@ async def list_jobs(
     else:
         strategy = RecentJobFilter(days=days)
 
-    jobs = await JobListService(db).get_jobs(strategy, page, page_size)
+    jobs = await JobListService().get_jobs(strategy, page, page_size)
     return jobs
